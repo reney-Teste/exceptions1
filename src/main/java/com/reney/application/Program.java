@@ -20,6 +20,7 @@ public class Program {
             System.out.println("\nReservation error: The check-out date must be later than both the check-in date and today's date.");
         } else {
             Reservation reservation = new Reservation(100, checkIn, checkOut);
+            System.out.println();
             System.out.println(reservation);
 
 
@@ -28,18 +29,15 @@ public class Program {
             System.out.print("Enter new checkOut date: ");
             checkOut = LocalDate.parse(sc.nextLine(), Reservation.dtf).atStartOfDay();
 
-
-            if (checkIn.isAfter(checkOut) || checkIn.isBefore(now)) {
-                System.out.println("Enter a valid date");
-            } else {
-
-                reservation.updateDates(checkIn, checkOut);
-
+            String error = reservation.updateDates(checkIn, checkOut);
+            if (error != null){
+                System.out.println("\nError in reservation: " + error);
+            }else {
                 System.out.println();
                 System.out.println(reservation);
-
-                sc.close();
             }
+
+            sc.close();
         }
     }
 }
