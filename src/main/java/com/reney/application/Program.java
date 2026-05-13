@@ -10,24 +10,26 @@ public class Program {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
+        LocalDateTime now = LocalDateTime.now();
 
-        LocalDateTime checkIn = LocalDate.parse("20/03/2000", Reservation.dtf).atStartOfDay();
-        LocalDateTime checkOut = LocalDate.parse("25/03/2000", Reservation.dtf).atStartOfDay();
-        if (checkIn.isAfter(checkOut)) {
-            System.out.println("Error in reservation: Check-out date must be after check-in date");
+        System.out.print("Enter the check-In date: ");
+        LocalDateTime checkIn = LocalDate.parse(sc.nextLine(), Reservation.dtf).atStartOfDay();
+        System.out.print("Enter the check-Out date: ");
+        LocalDateTime checkOut = LocalDate.parse(sc.nextLine(), Reservation.dtf).atStartOfDay();
+        if (checkIn.isAfter(checkOut) || checkIn.isBefore(now)) {
+            System.out.println("\nReservation error: The check-out date must be later than both the check-in date and today's date.");
         } else {
             Reservation reservation = new Reservation(100, checkIn, checkOut);
             System.out.println(reservation);
 
 
-            System.out.println("\nEnter new checkIn date:");
+            System.out.print("\nEnter new checkIn date: ");
             checkIn = LocalDate.parse(sc.nextLine(), Reservation.dtf).atStartOfDay();
-            System.out.println("\nEnter new checkOut date:");
+            System.out.print("Enter new checkOut date: ");
             checkOut = LocalDate.parse(sc.nextLine(), Reservation.dtf).atStartOfDay();
 
-            LocalDateTime dateNow = LocalDateTime.now();
 
-            if (checkIn.isBefore(dateNow)) {
+            if (checkIn.isAfter(checkOut) || checkIn.isBefore(now)) {
                 System.out.println("Enter a valid date");
             } else {
 

@@ -11,7 +11,7 @@ public class Reservation {
 
     public static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    public Reservation(){
+    public Reservation() {
     }
 
     public Reservation(Integer roomNumber, LocalDateTime checkIn, LocalDateTime checkOut) {
@@ -36,22 +36,18 @@ public class Reservation {
         return checkOut;
     }
 
-    public long duration(){
+    public long duration() {
         Duration duration = Duration.between(checkIn, checkOut);
         return duration.toDays();
     }
 
-    public void updateDates(LocalDateTime checkIn, LocalDateTime checkOut){
-        if (checkIn.isBefore(checkOut)) {
-            this.checkIn = checkIn;
-            this.checkOut = checkOut;
-        } else {
-            System.out.println("Invalid date!");
-        }
+    public void updateDates(LocalDateTime checkIn, LocalDateTime checkOut) {
+        this.checkIn = checkIn;
+        this.checkOut = checkOut;
     }
 
     @Override
     public String toString() {
-        return String.format("Reservation: Room %d, check-in: %s, check-out: %s, %d nights", roomNumber, dtf.format(checkIn), dtf.format(checkOut), duration());
+        return String.format("%nReservation: Room %d, check-in: %s, check-out: %s, %d nights", roomNumber, dtf.format(checkIn), dtf.format(checkOut), duration());
     }
 }
